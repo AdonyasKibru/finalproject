@@ -135,7 +135,7 @@ class Service(models.Model):
 
 class Reservation(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    timeslot = models.DateTimeField()
+    timeslot = models.ForeignKey(TimeSlot, on_delete=models.CASCADE)
     is_exclusive = models.BooleanField(default=False)
     service = models.ManyToManyField(Service)
     

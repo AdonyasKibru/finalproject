@@ -1,9 +1,9 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
 from django.http import HttpResponse
 from .models import Reservation
 
 def index(request):
-    return render(request, "index.html")
+    return HttpResponse(f"The index page")
 
 
 def cost(request, reservation_id):
