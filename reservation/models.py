@@ -1,10 +1,13 @@
+# written and editted by Adonyas Kibru
+# edited more by Rohan
+
 from django.db import models
 from django.core.exceptions import ValidationError
 
 class Customer(models.Model):
     first_name = models.CharField(max_length=40)
     last_name = models.CharField(max_length=40)
-    email = models.EmailField(max_length=40, unique=True)
+    email = models.EmailField(max_length=40)
     phone_number = models.CharField(max_length=10, null=True, blank=True)
 
     def getFirstName(self):
@@ -28,13 +31,13 @@ class TimeSlot(models.Model):
     end_time = models.DateTimeField()
     
     def getStartTime(self):
-        return self.start_time
+        return self.start_time.strftime("%Y-%m-%d %H:%M")
     
     def getEndTime(self):
-        return self.end_time
+        return self.end_time.strftime("%Y-%m-%d %H:%M") 
     
     def __str__(self):
-        return f"Starts: {self.start_time}, Ends: {self.end_time}"
+        return f"Starts: {self.getStartTime()}, Ends: {self.getEndTime()}"
 
 class RoomOption(models.Model):
     class RoomTypes(models.IntegerChoices):
@@ -64,17 +67,17 @@ class RoomOption(models.Model):
         if self.attendees > max_attendance:
             raise ValidationError(f"Attendees for {self.get_room_name_display()} cannot exceed {max_attendance}.")
         
-    def getAttendees():
-        return RoomOption.attendees
+    def get_attendees(self):
+        return self.attendees
     
-    def getTimeSlot():
-        return RoomOption.timeslot
+    def get_timeslot(self):
+        return self.timeslot
     
-    def getSpecialOrder():
-        return RoomOption.special_orders
+    def get_specialorder(self):
+        return self.special_orders
     
     def __str__(self):
-        return f"{self.get_room_name_display()}"
+        return f"Room ID: {self.id}, Name: {self.get_room_name_display()}, Start Time: {self.timeslot.start_time}, End Time: {self.timeslot.end_time}"
 
 class PoolOption(models.Model):
     class PoolTypes(models.IntegerChoices):
@@ -104,17 +107,17 @@ class PoolOption(models.Model):
         if self.attendees > max_attendance:
             raise ValidationError(f"Attendees for {self.get_pool_name_display()} cannot exceed {max_attendance}.")
         
-    def getAttendees():
-        return PoolOption.attendees
+    def get_attendees(self):
+        return self.attendees
     
-    def getTimeSlot():
-        return PoolOption.timeslot
+    def get_timeslot(self):
+        return self.timeslot
     
-    def getSpecialOrder():
-        return PoolOption.special_orders
+    def get_specialorder(self):
+        return self.special_orders
     
     def __str__(self):
-        return f"{self.get_pool_name_display()}"
+        return f"Pool ID: {self.id}, Name: {self.get_pool_name_display()}, Start Time: {self.timeslot.start_time}, End Time: {self.timeslot.end_time}"
 
 class ServiceType(models.Model):
     room_option = models.ForeignKey(RoomOption, on_delete=models.CASCADE, null=True, blank=True)   
@@ -124,7 +127,9 @@ class ServiceType(models.Model):
         return ServiceType.id
     
     def __str__(self):
-        return f"Service Type Room: {self.room_option}, Pool: {self.pool_option}"
+        room_id = self.room_option.id if self.room_option else "None"
+        pool_id = self.pool_option.id if self.pool_option else "None"
+        return f"ServiceType ID: {self.id}, Room ID: {room_id}, Pool ID: {pool_id}"
 
 class Service(models.Model):
     service_type = models.ManyToManyField(ServiceType)
