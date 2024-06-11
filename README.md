@@ -4,9 +4,13 @@
 ## Running the code
 Here is how to run the the database locally:
 
-      git clone https://github.com/timmynugyen/CSS475FinalProject/edit/main/README.md
-      cd CSS475FinalProject
-      python manage.py runserver
+      git clone https://github.com/AdonyasKibru/finalproject.git
+      cd finalproject # go and access the file form the terminal
+
+      # To run the code in windows computer use 'py' for macs use 'python'
+      py manage.py makemigrations
+      py manage.py migrate               
+      py manage.py runserver
 
 1. Go to the link listed http://127.0.0.1:8000/ for making pool reservation
 2. To look at the admin section, go to the subdirectory http://127.0.0.1:8000/admin of the link. will require login information but that is for my personal use only.
