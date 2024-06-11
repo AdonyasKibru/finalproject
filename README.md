@@ -1,4 +1,5 @@
-# CSS475FinalProject | Pool Reservation
+# Project By: Adonyas Kibru
+# CSS475FinalProject | Pool Reservation | 
 
 ## Running the code
 Here is how to run the the database locally:
@@ -7,9 +8,11 @@ Here is how to run the the database locally:
       cd CSS475FinalProject
       python manage.py runserver
 
-Go to the link listed (it should probably be http://127.0.0.1:8000/ or http://127.0.0.1:8080/)
-
-To access the admin section, go to the subdirectory /admin of the link. Login information should be displayed. The user is "admin", password is "pass123word456".
+1. Go to the link listed http://127.0.0.1:8000/ for making pool reservation
+2. To look at the admin section, go to the subdirectory http://127.0.0.1:8000/admin of the link. will require login information but that is for my personal use only.
+3. To cancel a reservation by customer, go to the subdirectory http://127.0.0.1:8000/cancel/<reservations_id>/ of the link.
+4. To look at all the reservations currently in the database, go to the subdirectory http://127.0.0.1:8000/administration/
+5. To update a current reservation, go to the subdirectory http://127.0.0.1:8000/update_reservation/<reservation_id>/
 
 ## Function definitions
 
